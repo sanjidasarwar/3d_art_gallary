@@ -58,6 +58,7 @@ for(let i = 0; i < 6; i++) {
 
   // add texture
   const texture = textureLoader.load(images[i])
+  texture.colorSpace = THREE.SRGBColorSpace;
 
   // add a basic cube to the scene
   const art = new THREE.Mesh(
@@ -68,6 +69,17 @@ for(let i = 0; i < 6; i++) {
   );
   art.position.z = 4;
   basePoint.add(art);
+
+  // add border
+    const border = new THREE.Mesh(
+    new THREE.BoxGeometry(3.5, 2.5, 0.15),
+    new THREE.MeshBasicMaterial({
+      color: "gray"
+    })
+  );
+  border.position.z = 4.1;
+
+  basePoint.add(border);
 }
 
 
