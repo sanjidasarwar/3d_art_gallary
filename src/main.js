@@ -17,7 +17,7 @@ camera.position.set(0, 0.5, 3);
 // canvas
 const target = document.querySelector('#app');
 if (!target) {
-  console.error("Canvas with ID 'dd' not found!");
+  console.error("Canvas with ID 'app' not found!");
 }
 
 // renderer
@@ -35,7 +35,27 @@ window.addEventListener('resize', () => {
 })
 
 
+// root point
+const rootPoint = new THREE.Object3D();
+scene.add(rootPoint);
 
+// create basepoint 
+const count = 6;
+for(let i = 0; i < 6; i++) {
+  const basePoint = new THREE.Object3D();
+  basePoint.rotation.y = i * (Math.PI * 2 / count);
+  rootPoint.add(basePoint);
+
+  // add a basic cube to the scene
+  const art = new THREE.Mesh(
+    new THREE.BoxGeometry(3, 2, 0.15),
+    new THREE.MeshBasicMaterial({
+      color: "red",
+    })
+  );
+  art.position.z = 4;
+  basePoint.add(art);
+}
 
 function animate() {
   requestAnimationFrame(animate);
