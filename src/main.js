@@ -34,10 +34,20 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
 })
 
+const images = [
+  '/public/picture/art1.jpg',
+  '/public/picture/art2.jpg',
+  '/public/picture/art3.jpg',
+  '/public/picture/art4.jpg',
+  '/public/picture/art5.jpg',
+  '/public/picture/art6.jpg',
+]
 
 // root point
 const rootPoint = new THREE.Object3D();
 scene.add(rootPoint);
+
+const textureLoader= new THREE.TextureLoader()
 
 // create basepoint 
 const count = 6;
@@ -46,19 +56,27 @@ for(let i = 0; i < 6; i++) {
   basePoint.rotation.y = i * (Math.PI * 2 / count);
   rootPoint.add(basePoint);
 
+  // add texture
+  const texture = textureLoader.load(images[i])
+
   // add a basic cube to the scene
   const art = new THREE.Mesh(
     new THREE.BoxGeometry(3, 2, 0.15),
     new THREE.MeshBasicMaterial({
-      color: "red",
+      map: texture
     })
   );
   art.position.z = 4;
   basePoint.add(art);
 }
 
+
 function animate() {
-  requestAnimationFrame(animate);
+  
+  // Rotate the cube
+  rootPoint.rotation.y += 0.001;
+
+  window.requestAnimationFrame(animate);
   renderer.render(scene, camera);
 }
 
