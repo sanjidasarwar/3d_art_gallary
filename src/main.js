@@ -63,7 +63,7 @@ for(let i = 0; i < 6; i++) {
   // add a basic cube to the scene
   const art = new THREE.Mesh(
     new THREE.BoxGeometry(3, 2, 0.15),
-    new THREE.MeshBasicMaterial({
+    new THREE.MeshStandardMaterial({
       map: texture
     })
   );
@@ -73,7 +73,7 @@ for(let i = 0; i < 6; i++) {
   // add border
     const border = new THREE.Mesh(
     new THREE.BoxGeometry(3.5, 2.5, 0.15),
-    new THREE.MeshBasicMaterial({
+    new THREE.MeshStandardMaterial({
       color: "gray"
     })
   );
@@ -81,6 +81,12 @@ for(let i = 0; i < 6; i++) {
 
   basePoint.add(border);
 }
+
+// add lighht
+const spotLight = new THREE.SpotLight(0xfffff, 100, 15, 1, 1);
+spotLight.position.set(0, 6, 0);
+spotLight.target.position.set(0, 1, -5);
+scene.add(spotLight, spotLight.target);
 
 
 function animate() {
